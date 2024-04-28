@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tazkara.Data;
+using Tazkara.IRepository;
 using Tazkara.Models;
+using Tazkara.Repository;
 
 namespace Tazkara
 {
@@ -16,6 +18,8 @@ namespace Tazkara
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            builder.Services.AddScoped<IContactUs,ContactUsRepository>();
 
             builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

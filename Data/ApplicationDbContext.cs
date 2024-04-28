@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Tazaker.Models;
 using Tazkara.Models;
 using Tazkara.ViewModels;
 
@@ -25,5 +26,6 @@ namespace Tazkara.Data
 
         }
         public DbSet<Tazkara.ViewModels.UserRoleVM> UserRoleVM { get; set; } = default!;
+        public DbSet<ContactUs> ContactUs { get; set; }
     }
 }
