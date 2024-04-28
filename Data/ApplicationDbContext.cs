@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Tazkara.Models;
+using Tazkara.ViewModels;
 
 namespace Tazkara.Data
 {
@@ -23,5 +24,6 @@ namespace Tazkara.Data
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "Security");
 
         }
+        public DbSet<Tazkara.ViewModels.UserRoleVM> UserRoleVM { get; set; } = default!;
     }
 }
