@@ -9,6 +9,16 @@ namespace Tazkara.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Match> Matchs { get; set; }
+        public DbSet<League> Leagues { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Stadium> Stadiums { get; set; }
+        public DbSet<CourtSidesRow3> CourtSidesRow3 { get; set; }
+        public DbSet<EastPremiumStands> EastPremiumStands { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<EastStands> EastStands { get; set; }
+        public DbSet<NorthPremiumStands> NorthPremiumStands { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

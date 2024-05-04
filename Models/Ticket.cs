@@ -6,6 +6,7 @@
         public string Title { get; set; } = null!;
         public Guid ReferenceNum { get; set; }
         public Match Match { get; set; }
+        public int StadiumId { get; set; }
         public Stadium Stadium { get; set; }
     }
 }
