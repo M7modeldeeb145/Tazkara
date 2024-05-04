@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Tazkara.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class addModels : Migration
+    public partial class editModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -12,8 +12,8 @@ using Tazkara.Data;
 namespace Tazkara.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240504041006_edit")]
-    partial class edit
+    [Migration("20240504201825_editModels")]
+    partial class editModels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
