@@ -39,8 +39,7 @@ namespace Tazkara.Controllers
                     LeagueId= matchviewmodel.LeagueId,
                     EndDate = matchviewmodel.EndDate,
                     StartDate = matchviewmodel.StartDate,
-                    //TicketId = matchviewmodel.TicketId,
-                    //TeamId = matchviewmodel.TeamId,
+                    StadiumId = matchviewmodel.StadiumId,
                 };
                 repository.Create(match);
                 return RedirectToAction("Index");
@@ -61,8 +60,7 @@ namespace Tazkara.Controllers
                 LeagueId = match.LeagueId,
                 EndDate = match.EndDate,
                 StartDate = match.StartDate,
-                //TicketId = match.TicketId,
-                //TeamId = match.TeamId,
+                StadiumId= match.StadiumId,
             };
             return View(matchviewmodel);
         }

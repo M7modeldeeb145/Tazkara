@@ -7,7 +7,6 @@
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int LeagueId { get; set; }
-        public int TeamId { get; set; }
-        public int TicketId { get; set; }
+        public int StadiumId { get; set; }
     }
 }
