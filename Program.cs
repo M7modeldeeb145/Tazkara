@@ -20,6 +20,8 @@ namespace Tazkara
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddScoped<IContactUs,ContactUsRepository>();
+            builder.Services.AddScoped<IMatch,MatchRepository>();
+            builder.Services.AddScoped<IStadium,StadiumRepository>();
 
             builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

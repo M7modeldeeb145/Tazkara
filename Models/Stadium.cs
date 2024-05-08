@@ -9,9 +9,12 @@
         public StadiumStatus StadiumStatus { get; set; }
         public int TeamId { get; set; }
         public Team? team { get; set; }
-        public List<Match>? Matches { get; set; }
+        public Match Match { get; set; }
+        public int MatchId { get; set; }
         public List<Ticket>? Tickets { get; set; }
         public EastPremiumStands EastPremiumStands { get; set; }
         public NorthPremiumStands NorthPremiumStands { get; set; }
+        public CourtSidesRow3 CourtSidesRow3 { get; set; }
+        public EastStands EastStands { get; set; }
     }
 }
