@@ -45,7 +45,7 @@ namespace Tazkara.Repository
                 edit.Address = stadium.Address;
                 edit.Capacity = stadium.Capacity;
                 edit.Name = stadium.Name;   
-                edit.MatchId = stadium.MatchId;
+                //edit.MatchId = stadium.MatchId;
                 edit.TeamId = stadium.TeamId;
                 context.SaveChanges();
             }

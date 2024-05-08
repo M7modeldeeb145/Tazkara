@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Tazkara.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class editModels : Migration
+    public partial class addModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,31 @@ namespace Tazkara.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leagues", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchViewModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchViewModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,7 +107,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.LeaguesId,
                         principalTable: "Leagues",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,8 +119,8 @@ namespace Tazkara.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LeagueId = table.Column<int>(type: "int", nullable: true),
-                    StadiumId = table.Column<int>(type: "int", nullable: true)
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    StadiumId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +129,8 @@ namespace Tazkara.Data.Migrations
                         name: "FK_Matchs_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,7 +151,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.MatchId,
                         principalTable: "Matchs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,7 +174,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +196,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.StadiumId,
                         principalTable: "Stadiums",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,7 +230,8 @@ namespace Tazkara.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CourtSidesRow3_StadiumId",
                 table: "CourtSidesRow3",
-                column: "StadiumId");
+                column: "StadiumId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EastPremiumStands_StadiumId",
@@ -220,7 +242,8 @@ namespace Tazkara.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EastStands_StadiumId",
                 table: "EastStands",
-                column: "StadiumId");
+                column: "StadiumId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeagueTeam_TeamsId",
@@ -235,7 +258,8 @@ namespace Tazkara.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Matchs_StadiumId",
                 table: "Matchs",
-                column: "StadiumId");
+                column: "StadiumId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_NorthPremiumStands_StadiumId",
@@ -301,7 +325,8 @@ namespace Tazkara.Data.Migrations
                 table: "Matchs",
                 column: "StadiumId",
                 principalTable: "Stadiums",
-                principalColumn: "Id");
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
@@ -322,6 +347,9 @@ namespace Tazkara.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "LeagueTeam");
+
+            migrationBuilder.DropTable(
+                name: "MatchViewModel");
 
             migrationBuilder.DropTable(
                 name: "NorthPremiumStands");

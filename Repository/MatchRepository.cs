@@ -72,9 +72,9 @@ namespace Tazkara.Repository
                 edit.StartDate = match.StartDate;
                 edit.EndDate = match.EndDate;
                 edit.Name = match.Name;
-                edit.TicketId = match.TicketId;
+                //edit.TicketId = match.TicketId;
                 edit.LeagueId = match.LeagueId;
-                edit.TeamId = match.TeamId;
+                //edit.TeamId = match.TeamId;
                 context.SaveChanges();
             }
         }

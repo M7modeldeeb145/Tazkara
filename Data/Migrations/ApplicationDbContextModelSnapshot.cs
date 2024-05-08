@@ -225,7 +225,8 @@ namespace Tazkara.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StadiumId");
+                    b.HasIndex("StadiumId")
+                        .IsUnique();
 
                     b.ToTable("CourtSidesRow3");
                 });
@@ -282,7 +283,8 @@ namespace Tazkara.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StadiumId");
+                    b.HasIndex("StadiumId")
+                        .IsUnique();
 
                     b.ToTable("EastStands");
                 });
@@ -295,9 +297,15 @@ namespace Tazkara.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -315,14 +323,14 @@ namespace Tazkara.Data.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LeagueId")
+                    b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StadiumId")
+                    b.Property<int>("StadiumId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -332,7 +340,8 @@ namespace Tazkara.Data.Migrations
 
                     b.HasIndex("LeagueId");
 
-                    b.HasIndex("StadiumId");
+                    b.HasIndex("StadiumId")
+                        .IsUnique();
 
                     b.ToTable("Matchs");
                 });
@@ -533,6 +542,38 @@ namespace Tazkara.Data.Migrations
                     b.ToTable("Users", "Security");
                 });
 
+            modelBuilder.Entity("Tazkara.ViewModels.MatchViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MatchViewModel");
+                });
+
             modelBuilder.Entity("Tazkara.ViewModels.UserRoleVM", b =>
                 {
                     b.Property<int>("Id")
@@ -619,8 +660,8 @@ namespace Tazkara.Data.Migrations
             modelBuilder.Entity("Tazaker.Models.CourtSidesRow3", b =>
                 {
                     b.HasOne("Tazaker.Models.Stadium", "Stadium")
-                        .WithMany()
-                        .HasForeignKey("StadiumId")
+                        .WithOne("CourtSidesRow3")
+                        .HasForeignKey("Tazaker.Models.CourtSidesRow3", "StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -641,8 +682,8 @@ namespace Tazkara.Data.Migrations
             modelBuilder.Entity("Tazaker.Models.EastStands", b =>
                 {
                     b.HasOne("Tazaker.Models.Stadium", "Stadium")
-                        .WithMany()
-                        .HasForeignKey("StadiumId")
+                        .WithOne("EastStands")
+                        .HasForeignKey("Tazaker.Models.EastStands", "StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -653,11 +694,15 @@ namespace Tazkara.Data.Migrations
                 {
                     b.HasOne("Tazaker.Models.League", "League")
                         .WithMany("Matches")
-                        .HasForeignKey("LeagueId");
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tazaker.Models.Stadium", "Stadium")
-                        .WithMany("Matches")
-                        .HasForeignKey("StadiumId");
+                        .WithOne("Match")
+                        .HasForeignKey("Tazaker.Models.Match", "StadiumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("League");
 
@@ -730,13 +775,15 @@ namespace Tazkara.Data.Migrations
 
             modelBuilder.Entity("Tazaker.Models.Stadium", b =>
                 {
-                    b.Navigation("EastPremiumStands")
-                        .IsRequired();
+                    b.Navigation("CourtSidesRow3");
 
-                    b.Navigation("Matches");
+                    b.Navigation("EastPremiumStands");
 
-                    b.Navigation("NorthPremiumStands")
-                        .IsRequired();
+                    b.Navigation("EastStands");
+
+                    b.Navigation("Match");
+
+                    b.Navigation("NorthPremiumStands");
 
                     b.Navigation("Tickets");
                 });
