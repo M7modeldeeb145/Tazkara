@@ -2,16 +2,15 @@
 
 namespace Tazkara.ViewModels
 {
-    public class MatchViewModel
+    public class EastStandsViewModel
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public int Capacity { get; set; }
         [Required]
-        public int LeagueId { get; set; }
+        public double Cost { get; set; }
         [Required]
         public int StadiumId { get; set; }
     }

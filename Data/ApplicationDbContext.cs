@@ -41,5 +41,6 @@ namespace Tazkara.Data
         public DbSet<Tazkara.ViewModels.TeamViewModel> TeamViewModel { get; set; } = default!;
         public DbSet<Tazkara.ViewModels.StadiumViewModel> StadiumViewModel { get; set; } = default!;
         public DbSet<Tazkara.ViewModels.LeagueViewModel> LeagueViewModel { get; set; } = default!;
+        public DbSet<Tazkara.ViewModels.TicketViewModel> TicketViewModel { get; set; } = default!;
     }
 }

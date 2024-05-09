@@ -1,10 +1,15 @@
-﻿namespace Tazkara.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Tazkara.ViewModels
 {
     public class TeamViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public string TeamLogo { get; set; } = null!;
+        [Required]
         public int MatchId { get; set; }
     }
 }

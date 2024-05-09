@@ -1,10 +1,15 @@
-﻿namespace Tazkara.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Tazkara.ViewModels
 {
     public class LeagueViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime? EndDate { get; set; }
     }
 }
