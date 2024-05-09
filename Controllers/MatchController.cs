@@ -81,7 +81,7 @@ namespace Tazkara.Controllers
             var match = repository.GetById(id);
             if (match != null)
             {
-                repository.Delete(id);
+                repository.Delete(match.Id);
                 return RedirectToAction("Index");
             }
             return NotFound();

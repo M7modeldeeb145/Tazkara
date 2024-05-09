@@ -6,7 +6,7 @@ namespace Tazkara.IRepository
     {
         void Create(Team team);
         void Update(Team team);
-        void Delete(Team team);
+        void Delete(int id);
         List<Team> GetAll();
         Team GetById(int id);
     }

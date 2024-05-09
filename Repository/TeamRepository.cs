@@ -17,9 +17,9 @@ namespace Tazkara.Repository
             context.SaveChanges();
         }
 
-        public void Delete(Team team)
+        public void Delete(int id)
         {
-            var delete = context.Teams.Find(team.Id);
+            var delete = context.Teams.Find(id);
             if (delete != null)
             {
                 context.Teams.Remove(delete);
