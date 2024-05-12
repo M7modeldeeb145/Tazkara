@@ -22,6 +22,8 @@ namespace Tazkara
             builder.Services.AddScoped<IContactUs,ContactUsRepository>();
             builder.Services.AddScoped<IMatch,MatchRepository>();
             builder.Services.AddScoped<IStadium,StadiumRepository>();
+            builder.Services.AddScoped<ITeam,TeamRepository>();
+            builder.Services.AddScoped<ILeague,LeagueRepository>();
 
             builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

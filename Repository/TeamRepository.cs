@@ -44,7 +44,6 @@ namespace Tazkara.Repository
             {
                 edit.TeamLogo = team.TeamLogo;
                 edit.Name = team.Name;
-                edit.MatchId = team.MatchId;
                 context.SaveChanges();
             }
         }

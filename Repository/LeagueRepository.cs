@@ -42,8 +42,7 @@ namespace Tazkara.Repository
             var edit = context.Leagues.Find(league.Id);
             if (edit != null)
             {
-                edit.StartDate = league.StartDate;
-                edit.EndDate = league.EndDate;
+                
                 edit.Name = league.Name;
                 context.SaveChanges();
             }

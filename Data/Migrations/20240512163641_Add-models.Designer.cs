@@ -12,8 +12,8 @@ using Tazkara.Data;
 namespace Tazkara.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240508181137_add-Models")]
-    partial class addModels
+    [Migration("20240512163641_Add-models")]
+    partial class Addmodels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,21 @@ namespace Tazkara.Data.Migrations
                     b.HasIndex("TeamsId");
 
                     b.ToTable("LeagueTeam");
+                });
+
+            modelBuilder.Entity("MatchTeam", b =>
+                {
+                    b.Property<int>("MatchesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MatchesId", "TeamsId");
+
+                    b.HasIndex("TeamsId");
+
+                    b.ToTable("MatchTeam");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -300,15 +315,9 @@ namespace Tazkara.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -419,9 +428,6 @@ namespace Tazkara.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -431,8 +437,6 @@ namespace Tazkara.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
 
                     b.ToTable("Teams");
                 });
@@ -545,60 +549,26 @@ namespace Tazkara.Data.Migrations
                     b.ToTable("Users", "Security");
                 });
 
-            modelBuilder.Entity("Tazkara.ViewModels.MatchViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LeagueId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MatchViewModel");
-                });
-
-            modelBuilder.Entity("Tazkara.ViewModels.UserRoleVM", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserRoleVM");
-                });
-
             modelBuilder.Entity("LeagueTeam", b =>
                 {
                     b.HasOne("Tazaker.Models.League", null)
                         .WithMany()
                         .HasForeignKey("LeaguesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.Team", null)
+                        .WithMany()
+                        .HasForeignKey("TeamsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MatchTeam", b =>
+                {
+                    b.HasOne("Tazaker.Models.Match", null)
+                        .WithMany()
+                        .HasForeignKey("MatchesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -734,17 +704,6 @@ namespace Tazkara.Data.Migrations
                     b.Navigation("team");
                 });
 
-            modelBuilder.Entity("Tazaker.Models.Team", b =>
-                {
-                    b.HasOne("Tazaker.Models.Match", "Match")
-                        .WithMany("Teams")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-                });
-
             modelBuilder.Entity("Tazaker.Models.Ticket", b =>
                 {
                     b.HasOne("Tazaker.Models.Match", "Match")
@@ -771,8 +730,6 @@ namespace Tazkara.Data.Migrations
 
             modelBuilder.Entity("Tazaker.Models.Match", b =>
                 {
-                    b.Navigation("Teams");
-
                     b.Navigation("Tickets");
                 });
 

@@ -25,18 +25,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs" asp-action="Create">ContactUs</a>
-                        </li>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs" asp-action="Index">All ContactUs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role Managment</a>
-                            </li>
-                        }
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" asp-action="Create" asp-controller="ContactUs">Contact Us</a></li>
+                                    <li><a class="dropdown-item" asp-action="Create" asp-controller="Team">Create New Team</a></li>
+                                    <li><a class="dropdown-item" asp-action="Create" asp-controller="League">Create New League</a></li>
+                                    <li><a class="dropdown-item" asp-action="Create" asp-controller="Stadium">Create New Stadium</a></li>
+                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="ContactUs">All ContactUs</a></li>
+                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Role">Add New Role</a></li>
+                                </ul>
+                            }
+                        </div>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

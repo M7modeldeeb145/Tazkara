@@ -8,7 +8,7 @@ namespace Tazkara.ViewModels
         [Required]
         public string Name { get; set; }
         [Required]
-        public string TeamLogo { get; set; } = null!;
+        public string TeamLogo { get; set; } 
         [Required]
         public int MatchId { get; set; }
     }

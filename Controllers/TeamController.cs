@@ -33,7 +33,6 @@ namespace Tazkara.Controllers
                 {
                     Name = teamViewModel.Name,
                     TeamLogo = teamViewModel.TeamLogo,
-                    MatchId = teamViewModel.MatchId,
                     Id = teamViewModel.Id
                 };
                 repository.Create(team);
@@ -51,7 +50,6 @@ namespace Tazkara.Controllers
             }
             var teamVM = new TeamViewModel()
             {
-                MatchId = team.MatchId,
                 Name = team.Name,
                 TeamLogo = team.TeamLogo,
             };

@@ -9,6 +9,7 @@ namespace Tazkara.ViewModels
         public string Name { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime? EndDate { get; set; }
         [Required]
         public int LeagueId { get; set; }

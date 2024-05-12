@@ -41,17 +41,16 @@ namespace Tazkara.Repository
                 return match;
             }
             return null;
-            
         }
 
         public List<League> GetLeagues()
         {
-            throw new NotImplementedException();
+            return context.Leagues.ToList();
         }
 
         public List<Stadium> GetStadiums()
         {
-            throw new NotImplementedException();
+            return context.Stadiums.ToList();
         }
 
         public List<Team> GetTeams()

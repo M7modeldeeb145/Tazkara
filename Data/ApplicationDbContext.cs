@@ -35,12 +35,6 @@ namespace Tazkara.Data
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "Security");
 
         }
-        public DbSet<Tazkara.ViewModels.UserRoleVM> UserRoleVM { get; set; } = default!;
         public DbSet<ContactUs> ContactUs { get; set; }
-        public DbSet<Tazkara.ViewModels.MatchViewModel> MatchViewModel { get; set; } = default!;
-        public DbSet<Tazkara.ViewModels.TeamViewModel> TeamViewModel { get; set; } = default!;
-        public DbSet<Tazkara.ViewModels.StadiumViewModel> StadiumViewModel { get; set; } = default!;
-        public DbSet<Tazkara.ViewModels.LeagueViewModel> LeagueViewModel { get; set; } = default!;
-        public DbSet<Tazkara.ViewModels.TicketViewModel> TicketViewModel { get; set; } = default!;
     }
 }

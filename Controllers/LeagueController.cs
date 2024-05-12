@@ -31,9 +31,7 @@ namespace Tazkara.Controllers
             {
                 var league = new League()
                 {
-                    EndDate = leagueViewModel.EndDate,
                     Name = leagueViewModel.Name,
-                    StartDate = leagueViewModel.StartDate,
                 };
                 repository.Create(league);
                 return RedirectToAction("Index");
@@ -50,9 +48,7 @@ namespace Tazkara.Controllers
             }
             var leagueVM = new LeagueViewModel()
             {
-                EndDate = league.EndDate,
                 Name = league.Name, 
-                StartDate = league.StartDate,
             };
             return View(leagueVM);
         }
