@@ -1,4 +1,5 @@
-﻿using Tazaker.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Tazaker.Models;
 using Tazkara.Data;
 using Tazkara.IRepository;
 
@@ -32,10 +33,17 @@ namespace Tazkara.Repository
             return context.Leagues.ToList();
         }
 
+       
+
         public League GetById(int id)
         {
             return context.Leagues.Find(id);
         }
+
+        //public League GetTeamsWithLeague(int id)
+        //{
+        //    return context.Teams.Include(e => e.Leagues).Include(e => e.Matches).First(e => e.Id == id);
+        //}
 
         public void Update(League league)
         {

@@ -12,6 +12,10 @@ namespace Tazkara.ViewModels
         [Required]
         public DateTime? EndDate { get; set; }
         [Required]
+        public string TeamA { get; set; }
+        [Required]
+        public string TeamB { get; set; }
+        [Required]
         public int LeagueId { get; set; }
         [Required]
         public int StadiumId { get; set; }

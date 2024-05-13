@@ -1,0 +1,28 @@
+﻿@using Tazaker.Models
+@model List<Match>
+
+@{
+    ViewBag.Title = "Match List";
+}
+
+<h2>Match List</h2>
+
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var match in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@match.Name</h5>
+                        <p class="card-text">@match.TeamA VS @match.TeamB </p>
+                        <p class="card-text">Start Date: @match.StartDate</p>
+                        <p class="card-text">End Date: @match.EndDate</p>
+                        <p class="card-text">League ID: @match.League.Name</p>
+                        <p class="card-text">Stadium ID: @match.Stadium.Name</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

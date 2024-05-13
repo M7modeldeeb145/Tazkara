@@ -79,5 +79,10 @@ namespace Tazkara.Controllers
             repository.Delete(id);
             return RedirectToAction("Index");
         }
+        //[HttpGet]
+        //public IActionResult ShowTeams()
+        //{
+
+        //}
     }
 }

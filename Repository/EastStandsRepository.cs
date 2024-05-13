@@ -33,7 +33,12 @@ namespace Tazkara.Repository
             return context.EastStands.Include(e=>e.Stadium).ToList();
         }
 
-        public EastStands GetById(int id)
+		public List<Stadium> GetAllStadiums()
+		{
+			return context.Stadiums.ToList();
+		}
+
+		public EastStands GetById(int id)
         {
             return context.EastStands.Find(id);
         }

@@ -73,6 +73,8 @@ namespace Tazkara.Repository
                 edit.Name = match.Name;
                 edit.LeagueId = match.LeagueId;
                 edit.StadiumId = match.StadiumId;
+                edit.TeamB = match.TeamB;
+                edit.TeamA = match.TeamA;
                 context.SaveChanges();
             }
         }
