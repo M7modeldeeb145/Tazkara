@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Tazkara.Data;
 using Tazkara.IRepository;
@@ -24,11 +25,13 @@ namespace Tazkara
             builder.Services.AddScoped<IStadium,StadiumRepository>();
             builder.Services.AddScoped<ITeam,TeamRepository>();
             builder.Services.AddScoped<ILeague,LeagueRepository>();
+            builder.Services.AddScoped<ITicket,TicketRepository>();
 
-            builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
+            builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

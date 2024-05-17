@@ -9,5 +9,8 @@ namespace Tazkara.IRepository
         void Delete(int id);
         List<Ticket> GetAll();
         Ticket GetById(int id);
+        Match GetMatch(int id);
+        List<Match> GetMatches();
+        List<Stadium> GetStadiums();
     }
 }

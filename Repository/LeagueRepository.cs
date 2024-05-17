@@ -2,6 +2,7 @@
 using Tazaker.Models;
 using Tazkara.Data;
 using Tazkara.IRepository;
+using Tazkara.Models;
 
 namespace Tazkara.Repository
 {
@@ -40,11 +41,11 @@ namespace Tazkara.Repository
             return context.Leagues.Find(id);
         }
 
-        //public League GetTeamsWithLeague(int id)
-        //{
-        //    return context.Teams.Include(e => e.Leagues).Include(e => e.Matches).First(e => e.Id == id);
-        //}
-
+        public List<Team> GetTeamsWithLeague(int id)
+        {
+            return context.Teams.Include(e=>e.Leagues).Include(e=>e.Matches).Where(e=> e.Id== id).ToList();
+        }
+      
         public void Update(League league)
         {
             var edit = context.Leagues.Find(league.Id);

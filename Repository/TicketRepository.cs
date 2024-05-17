@@ -37,6 +37,21 @@ namespace Tazkara.Repository
             return context.Tickets.Find(id);
         }
 
+        public Match GetMatch(int id)
+        {
+            return context.Matchs.Find(id);
+        }
+
+        public List<Match> GetMatches()
+        {
+            return context.Matchs.ToList();
+        }
+
+        public List<Stadium> GetStadiums()
+        {
+            return context.Stadiums.ToList();
+        }
+
         public void Update(Ticket Ticket)
         {
             var edit = context.Tickets.Find(Ticket.Id);

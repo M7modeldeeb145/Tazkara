@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Match List";
+    int i = 1;
 }
 
 <h2>Match List</h2>
@@ -15,14 +16,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@match.Name</h5>
-                        <p class="card-text">@match.TeamA VS @match.TeamB </p>
+                        <p class="card-text">
+                            <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + i + "A"]" width="50px" class="rounded-circle" />
+                            <span>@ViewBag.TeamsLogoAndNames["Name" + i + "A"]</span>
+                            VS
+                            <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + i + "B"]" width="50px" class="rounded-circle" />
+                            <span>@ViewBag.TeamsLogoAndNames["Name" + i + "B"]</span>
+                        </p>
                         <p class="card-text">Start Date: @match.StartDate</p>
                         <p class="card-text">End Date: @match.EndDate</p>
-                        <p class="card-text">League ID: @match.League.Name</p>
-                        <p class="card-text">Stadium ID: @match.Stadium.Name</p>
+                        <p class="card-text">League: @match.League.Name</p>
+                        <p class="card-text">Stadium: @ViewBag.Stadiums[i].Name</p>
+                        <p class="card-text">Stadium Status: @ViewBag.Stadiums[i].StadiumStatus</p>
+                        <a asp-action="Create" asp-controller="Ticket" class="btn btn-primary">Book Ticket</a>
                     </div>
                 </div>
             </div>
+            i++;
         }
+
     </div>
 </div>

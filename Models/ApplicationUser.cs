@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Tazaker.Models;
 
 namespace Tazkara.Models
 {
@@ -10,5 +11,6 @@ namespace Tazkara.Models
         [Required, MaxLength(100)]
         public string LastName { get; set; }
         public byte[]? ProfilePicture { get; set; }
+        public List<Ticket> Tickets { get; set; }
     }
 }

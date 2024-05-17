@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -149,7 +150,7 @@ namespace Tazkara.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -172,6 +173,33 @@ namespace Tazkara.Areas.Identity.Pages.Account
             return Page();
         }
 
+        public async Task<bool> SendEmailAsync(string email, string subject, string ConfirmLink)
+        {
+            try
+            {
+                var message = new MailMessage();
+                var smtpclient = new SmtpClient();
+                message.From = new MailAddress("mahmoudaldeeb45@gmail.com");
+                message.Subject = subject;
+                message.To.Add(email);
+                message.Body = ConfirmLink;
+                message.IsBodyHtml = true;
+
+                smtpclient.Port = 587;
+                smtpclient.Host = "smtp.gmail.com";
+
+                smtpclient.EnableSsl = true;
+                smtpclient.UseDefaultCredentials = true;
+                smtpclient.Credentials = new NetworkCredential("hassanzidan861@gmail.com", "hassanzidan2000");
+                smtpclient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpclient.Send(message);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         private ApplicationUser CreateUser()
         {
             try

@@ -12,8 +12,8 @@ using Tazkara.Data;
 namespace Tazkara.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240512163641_Add-models")]
-    partial class Addmodels
+    [Migration("20240513232933_add-models")]
+    partial class addmodels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace Tazkara.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ApplicationUserTicket", b =>
+                {
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TicketsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ApplicationUserTicket");
+                });
 
             modelBuilder.Entity("LeagueTeam", b =>
                 {
@@ -348,6 +363,14 @@ namespace Tazkara.Data.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("TeamA")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LeagueId");
@@ -547,6 +570,21 @@ namespace Tazkara.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "Security");
+                });
+
+            modelBuilder.Entity("ApplicationUserTicket", b =>
+                {
+                    b.HasOne("Tazaker.Models.Ticket", null)
+                        .WithMany()
+                        .HasForeignKey("TicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazkara.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LeagueTeam", b =>

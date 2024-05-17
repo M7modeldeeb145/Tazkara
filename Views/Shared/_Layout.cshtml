@@ -29,8 +29,8 @@
                             <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 Actions
                             </button>
-                            @if (User.IsInRole("Admin"))
-                            {
+                           @*  @if (User.IsInRole("Admin"))
+                            { *@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="ContactUs">Contact Us</a></li>
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Team">Create New Team</a></li>
@@ -41,8 +41,9 @@
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="League">All Leagues</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Role">Add New Role</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Match">All Matches</a></li>
+                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Users">All Users</a></li>
                                 </ul>
-                            }
+                            @* } *@
                         </div>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -63,6 +64,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/lib/bootbox.js/bootbox.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

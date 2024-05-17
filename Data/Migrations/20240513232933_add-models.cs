@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Tazkara.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Addmodels : Migration
+    public partial class addmodels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -161,6 +161,8 @@ namespace Tazkara.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamA = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LeagueId = table.Column<int>(type: "int", nullable: false),
@@ -257,23 +259,53 @@ namespace Tazkara.Data.Migrations
                         onDelete: ReferentialAction.NoAction);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ApplicationUserTicket",
+                columns: table => new
+                {
+                    TicketsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserTicket", x => new { x.TicketsId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserTicket_Tickets_TicketsId",
+                        column: x => x.TicketsId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserTicket_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalSchema: "Security",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserTicket_UsersId",
+                table: "ApplicationUserTicket",
+                column: "UsersId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_CourtSidesRow3_StadiumId",
                 table: "CourtSidesRow3",
                 column: "StadiumId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EastPremiumStands_StadiumId",
                 table: "EastPremiumStands",
                 column: "StadiumId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EastStands_StadiumId",
                 table: "EastStands",
                 column: "StadiumId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeagueTeam_TeamsId",
@@ -289,7 +321,7 @@ namespace Tazkara.Data.Migrations
                 name: "IX_Matchs_StadiumId",
                 table: "Matchs",
                 column: "StadiumId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchTeam_TeamsId",
@@ -300,13 +332,13 @@ namespace Tazkara.Data.Migrations
                 name: "IX_NorthPremiumStands_StadiumId",
                 table: "NorthPremiumStands",
                 column: "StadiumId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stadiums_TeamId",
                 table: "Stadiums",
                 column: "TeamId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_MatchId",
@@ -322,6 +354,9 @@ namespace Tazkara.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationUserTicket");
+
             migrationBuilder.DropTable(
                 name: "CourtSidesRow3");
 

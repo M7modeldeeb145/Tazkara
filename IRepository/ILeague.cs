@@ -9,6 +9,6 @@ namespace Tazkara.IRepository
         void Delete(int id);
         List<League> GetAll();
         League GetById(int id);
-        //League GetTeamsWithLeague(int id);
+        List<Team> GetTeamsWithLeague(int id);
     }
 }

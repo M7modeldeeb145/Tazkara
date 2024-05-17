@@ -1,0 +1,20 @@
+﻿@using Tazaker.Models
+@model List<Team>
+
+@foreach(var team in Model)
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Team Logo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>@team.Name</td>
+				<td><img src="/Images/TeamsLogo/@team.TeamLogo" class="rounded-circle" width="50px"/></td>
+			</tr>
+		</tbody>
+	</table>
+}

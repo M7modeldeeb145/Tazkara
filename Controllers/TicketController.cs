@@ -21,24 +21,26 @@ namespace Tazkara.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Stadiums"] = repository.GetStadiums();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TicketViewModel ticketViewModel)
+        public IActionResult Create(TicketViewModel ticketViewModel,int id)
         {
             if (ModelState.IsValid)
             {
+                var match = repository.GetMatch(id);
                 var ticket = new Ticket()
                 {
                     Id = ticketViewModel.Id,
                     MatchId = ticketViewModel.MatchId,
-                    ReferenceNum = ticketViewModel.ReferenceNum,
+                    ReferenceNum = new Guid(),
                     StadiumId = ticketViewModel.StadiumId,
                     Title = ticketViewModel.Title,
                 };
                 repository.Create(ticket);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",match);
             }
             return View("Create");
         }

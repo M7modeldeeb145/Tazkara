@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using Tazaker.Models;
+using Tazkara.Data;
 using Tazkara.IRepository;
 using Tazkara.ViewModels;
 
@@ -9,14 +10,36 @@ namespace Tazkara.Controllers
     public class MatchController : Controller
     {
         IMatch repository;
-        public MatchController(IMatch repository)
+        private readonly ApplicationDbContext context;
+
+        public MatchController(IMatch repository, ApplicationDbContext context)
         {
             this.repository = repository;
+            this.context = context;
         }
         [HttpGet]
         public IActionResult Index()
         {
             var Matches = repository.GetAll();
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            int i = 1;
+
+            foreach (var item in Matches)
+            {
+                var logoTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).TeamLogo;
+                var NameTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).Name;
+                var logoTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).TeamLogo;
+                var NameTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).Name;
+                
+                dic.Add($"match{i}A", logoTeam1);
+                dic.Add($"Name{i}A", NameTeam1);
+                dic.Add($"match{i}B", logoTeam2);
+                dic.Add($"Name{i++}B", NameTeam2);
+            }
+
+            ViewData["TeamsLogoAndNames"] = dic;
+            ViewData["Stadiums"] = repository.GetStadiums();
             return View(Matches);
         }
         [HttpGet]
@@ -33,6 +56,8 @@ namespace Tazkara.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
                 var match = new Tazaker.Models.Match()
                 {
                     Name = matchviewmodel.Name,

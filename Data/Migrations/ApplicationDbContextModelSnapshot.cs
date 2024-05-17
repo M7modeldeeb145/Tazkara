@@ -22,6 +22,21 @@ namespace Tazkara.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ApplicationUserTicket", b =>
+                {
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TicketsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ApplicationUserTicket");
+                });
+
             modelBuilder.Entity("LeagueTeam", b =>
                 {
                     b.Property<int>("LeaguesId")
@@ -552,6 +567,21 @@ namespace Tazkara.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "Security");
+                });
+
+            modelBuilder.Entity("ApplicationUserTicket", b =>
+                {
+                    b.HasOne("Tazaker.Models.Ticket", null)
+                        .WithMany()
+                        .HasForeignKey("TicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazkara.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LeagueTeam", b =>
