@@ -5,48 +5,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-@foreach(var contactus in Model)
+<h1 class="mb-4" style="color: black;">ContactUs List</h1>
+
+@foreach (var contactUs in Model)
 {
-    <div>
-        <h4>ContactUs</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => contactus.Name)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => contactus.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => contactus.Email)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => contactus.Email)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => contactus.Message)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => contactus.Message)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => contactus.Subject)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => contactus.Subject)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => contactus.Status)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => contactus.Status)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@contactus?.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-black">@contactUs.Name</h5>
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black;">Email:</dt>
+                <dd class="col-sm-10" style="color: black;">@contactUs.Email</dd>
+
+                <dt class="col-sm-2" style="color: black;">Subject:</dt>
+                <dd class="col-sm-10" style="color: black;">@contactUs.Subject</dd>
+
+                <dt class="col-sm-2" style="color: black;">Message:</dt>
+                <dd class="col-sm-10" style="color: black;">@contactUs.Message</dd>
+
+                <dt class="col-sm-2" style="color: black;">Status:</dt>
+                <dd class="col-sm-10" style="color: black;">@contactUs.Status</dd>
+            </dl>
+            <div class="text-end">
+                <a asp-action="Delete" asp-route-id="@contactUs.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
     </div>
 }
 

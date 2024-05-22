@@ -33,19 +33,22 @@ namespace Tazkara.Repository
         {
             return context.Leagues.ToList();
         }
-
-       
-
         public League GetById(int id)
         {
             return context.Leagues.Find(id);
         }
 
-        public List<Team> GetTeamsWithLeague(int id)
+        public List<Match> GetMatchesInLeague(int id)
         {
-            return context.Teams.Include(e=>e.Leagues).Include(e=>e.Matches).Where(e=> e.Id== id).ToList();
+            var result = context.Matchs.Include(e => e.League).Include(e=>e.Stadium).Where(e=>e.LeagueId==id).ToList();
+            return result;
         }
-      
+
+        public List<Stadium> GetStadiums()
+        {
+            return context.Stadiums.ToList();
+        }
+
         public void Update(League league)
         {
             var edit = context.Leagues.Find(league.Id);

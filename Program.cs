@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using Tazkara.Data;
 using Tazkara.IRepository;
 using Tazkara.Models;
@@ -26,13 +27,24 @@ namespace Tazkara
             builder.Services.AddScoped<ITeam,TeamRepository>();
             builder.Services.AddScoped<ILeague,LeagueRepository>();
             builder.Services.AddScoped<ITicket,TicketRepository>();
+            builder.Services.AddScoped<IReservationCart, ReservationCartRepository>();
+            builder.Services.AddScoped<IApplicationUser, ApplicationUserRepository>();
 
             builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            builder.Services.AddDistributedMemoryCache();
+
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(20);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -52,6 +64,8 @@ namespace Tazkara
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

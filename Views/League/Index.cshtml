@@ -1,21 +1,62 @@
 ﻿@using Tazaker.Models
 @model List<League>
 
-<h1>All Leagues</h1>
-@foreach(var league in Model)
-{
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Teams</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>@league.Name</td>
-				<a asp-action="ShowTeams" asp-controller="League">Show Teams</a>
-			</tr>
-		</tbody>
-	</table>
-}
+<h1 class="text-center my-4">All Leagues</h1>
+
+<div class="container">
+    @foreach (var league in Model)
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card league-card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title text-black">@league.Name</h5>
+                            <a asp-action="ShowTeams" asp-controller="League" asp-route-id="@league.Id" class="btn btn-primary">Show Matches</a>
+                        </div>
+                        <img src="/Images/LeagueLogo/@league.LeagueLogo" alt="@league.Name Logo" class="league-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .league-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .league-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .league-logo {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>

@@ -11,7 +11,5 @@ namespace Tazkara.ViewModels
         public int Capacity { get; set; }
         [Required]
         public double Cost { get; set; }
-        [Required]
-        public int StadiumId { get; set; }
     }
 }

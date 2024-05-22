@@ -1,20 +1,45 @@
 ﻿@using Tazaker.Models
 @model List<Team>
 
-@foreach(var team in Model)
-{
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Team Logo</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>@team.Name</td>
-				<td><img src="/Images/TeamsLogo/@team.TeamLogo" class="rounded-circle" width="50px"/></td>
-			</tr>
-		</tbody>
-	</table>
-}
+<h1 class="text-center my-4">All Teams</h1>
+
+<div class="container">
+    @foreach (var team in Model)
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card team-card">
+                    <div class="card-body d-flex align-items-center">
+                        <img src="/Images/TeamsLogo/@team.TeamLogo" class="rounded-circle me-3" width="50px" alt="@team.Name Logo" />
+                        <h5 class="card-title mb-0">@team.Name</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .team-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    img.rounded-circle {
+        transition: transform 0.3s ease;
+    }
+
+        img.rounded-circle:hover {
+            transform: scale(1.1);
+        }
+</style>

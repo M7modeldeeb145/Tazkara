@@ -9,5 +9,6 @@ namespace Tazkara.IRepository
         void Delete(int id);
         List<Team> GetAll();
         Team GetById(int id);
+        
     }
 }

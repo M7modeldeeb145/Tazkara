@@ -39,7 +39,7 @@ namespace Tazkara.Controllers
             }
 
             ViewData["TeamsLogoAndNames"] = dic;
-            ViewData["Stadiums"] = repository.GetStadiums();
+            ViewData["Leagues"] = repository.GetLeagues();
             return View(Matches);
         }
         [HttpGet]
@@ -54,10 +54,8 @@ namespace Tazkara.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(MatchViewModel matchviewmodel)
         {
-            if (ModelState.IsValid)
-            {
-
-
+            if (ModelState.IsValid) 
+            { 
                 var match = new Tazaker.Models.Match()
                 {
                     Name = matchviewmodel.Name,
@@ -104,16 +102,12 @@ namespace Tazkara.Controllers
             }
             return View("Update");
         }
-        [HttpPost]
+        //[HttpPost]
         public IActionResult Delete(int id)
         {
             var match = repository.GetById(id);
-            if (match != null)
-            {
-                repository.Delete(match.Id);
-                return RedirectToAction("Index");
-            }
-            return NotFound();
+            repository.Delete(match.Id);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Search (string name)

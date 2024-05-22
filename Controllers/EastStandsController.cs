@@ -35,7 +35,6 @@ namespace Tazkara.Controllers
                     Capacity = viewModel.Capacity,
                     Cost = viewModel.Cost,
                     Name = viewModel.Name,
-                    StadiumId = viewModel.StadiumId,
                 };
                 repository.Create(ESVM);
                 return RedirectToAction("Index");
@@ -53,7 +52,6 @@ namespace Tazkara.Controllers
                     Capacity = st.Capacity,
                     Cost = st.Cost,
                     Name = st.Name,
-                    StadiumId = st.StadiumId,
                 };
                 return View(stvm);
             }

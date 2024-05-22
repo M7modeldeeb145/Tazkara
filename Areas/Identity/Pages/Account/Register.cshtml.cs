@@ -173,13 +173,11 @@ namespace Tazkara.Areas.Identity.Pages.Account
             return Page();
         }
 
-        public async Task<bool> SendEmailAsync(string email, string subject, string ConfirmLink)
+        public async Task SendEmailAsync(string email, string subject, string ConfirmLink)
         {
-            try
-            {
                 var message = new MailMessage();
                 var smtpclient = new SmtpClient();
-                message.From = new MailAddress("mahmoudaldeeb45@gmail.com");
+                message.From = new MailAddress("hassanzidan861@gmail.com");
                 message.Subject = subject;
                 message.To.Add(email);
                 message.Body = ConfirmLink;
@@ -187,18 +185,9 @@ namespace Tazkara.Areas.Identity.Pages.Account
 
                 smtpclient.Port = 587;
                 smtpclient.Host = "smtp.gmail.com";
-
                 smtpclient.EnableSsl = true;
-                smtpclient.UseDefaultCredentials = true;
-                smtpclient.Credentials = new NetworkCredential("hassanzidan861@gmail.com", "hassanzidan2000");
-                smtpclient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpclient.Credentials = new NetworkCredential("hassanzidan861@gmail.com", "vpspudpvghuntgqp");
                 smtpclient.Send(message);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
         private ApplicationUser CreateUser()
         {

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Tazaker.Models.Stadium>
+
+@{
+    ViewData["Title"] = "All Stadiums";
+}
+
+<h1 class="text-center my-4">All Stadiums</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var stadium in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title text-black">@stadium.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-black"><strong>Address:</strong> @stadium.Address</p>
+                        <p class="text-black"><strong>Total Capacity:</strong> @stadium.TotalCapacity</p>
+                        <p class="text-black"><strong>Stadium Owner:</strong> @stadium.team.Name</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

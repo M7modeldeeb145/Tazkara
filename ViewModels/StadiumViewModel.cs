@@ -9,11 +9,19 @@ namespace Tazkara.ViewModels
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Capacity { get; set; }
+        public int TotalCapacity { get; set; }
         [Required]
         public string Address { get; set; } 
         public StadiumStatus StadiumStatus { get; set; }
         [Required]
         public int TeamId { get; set; }
+        [Required]
+        public int EastStandsId { get; set; }
+        [Required]
+        public int EastPremiumStandsId { get; set; }
+        [Required]
+        public int NorthPremiumStandsId { get; set; }
+        [Required]
+        public int CourtSidesRow3Id { get; set; }
     }
 }

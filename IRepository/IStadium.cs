@@ -9,5 +9,10 @@ namespace Tazkara.IRepository
         void Delete(int id);
         List<Stadium> GetAll();
         Stadium GetById(int id);
+        List<Team> GetAllTeams();
+        List<NorthPremiumStands> GetAllNorthPremiumStands();
+        List<EastPremiumStands> GetAllEastPremiumStands();
+        List<EastStands> GetAllEastStands();
+        List<CourtSidesRow3> GetAllCourtSidesRow3();
     }
 }

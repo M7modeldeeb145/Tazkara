@@ -51,7 +51,6 @@ namespace Tazkara.Repository
                 edit.Cost = EastStands.Cost;
                 edit.Name = EastStands.Name;
                 edit.Capacity = EastStands.Capacity;
-                edit.StadiumId = EastStands.StadiumId;
                 context.SaveChanges();
             }
         }

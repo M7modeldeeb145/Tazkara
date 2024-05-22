@@ -50,7 +50,6 @@ namespace Tazkara.Repository
 				edit.Cost = NorthPremiumStands.Cost;
 				edit.Name = NorthPremiumStands.Name;
 				edit.Capacity = NorthPremiumStands.Capacity;
-				edit.StadiumId = NorthPremiumStands.StadiumId;
 				context.SaveChanges();
 			}
 		}

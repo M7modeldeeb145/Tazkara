@@ -15,16 +15,77 @@ namespace Tazkara.Data.Migrations
                 name: "UserRoleVM");
 
             migrationBuilder.CreateTable(
+                name: "CourtSidesRow3",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourtSidesRow3", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EastPremiumStands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EastPremiumStands", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EastStands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EastStands", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Leagues",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LeagueLogo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leagues", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NorthPremiumStands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NorthPremiumStands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,84 +133,46 @@ namespace Tazkara.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    TotalCapacity = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StadiumStatus = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false)
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    EastPremiumStandsId = table.Column<int>(type: "int", nullable: false),
+                    NorthPremiumStandsId = table.Column<int>(type: "int", nullable: false),
+                    CourtSidesRow3Id = table.Column<int>(type: "int", nullable: false),
+                    EastStandsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stadiums", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Stadiums_CourtSidesRow3_CourtSidesRow3Id",
+                        column: x => x.CourtSidesRow3Id,
+                        principalTable: "CourtSidesRow3",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stadiums_EastPremiumStands_EastPremiumStandsId",
+                        column: x => x.EastPremiumStandsId,
+                        principalTable: "EastPremiumStands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stadiums_EastStands_EastStandsId",
+                        column: x => x.EastStandsId,
+                        principalTable: "EastStands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stadiums_NorthPremiumStands_NorthPremiumStandsId",
+                        column: x => x.NorthPremiumStandsId,
+                        principalTable: "NorthPremiumStands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Stadiums_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CourtSidesRow3",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourtSidesRow3", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CourtSidesRow3_Stadiums_StadiumId",
-                        column: x => x.StadiumId,
-                        principalTable: "Stadiums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EastPremiumStands",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EastPremiumStands", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EastPremiumStands_Stadiums_StadiumId",
-                        column: x => x.StadiumId,
-                        principalTable: "Stadiums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EastStands",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EastStands", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EastStands_Stadiums_StadiumId",
-                        column: x => x.StadiumId,
-                        principalTable: "Stadiums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -182,29 +205,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.StadiumId,
                         principalTable: "Stadiums",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NorthPremiumStands",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    StadiumId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NorthPremiumStands", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NorthPremiumStands_Stadiums_StadiumId",
-                        column: x => x.StadiumId,
-                        principalTable: "Stadiums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,13 +223,13 @@ namespace Tazkara.Data.Migrations
                         column: x => x.MatchesId,
                         principalTable: "Matchs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MatchTeam_Teams_TeamsId",
                         column: x => x.TeamsId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,7 +251,7 @@ namespace Tazkara.Data.Migrations
                         column: x => x.MatchId,
                         principalTable: "Matchs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Stadiums_StadiumId",
                         column: x => x.StadiumId,
@@ -290,24 +291,6 @@ namespace Tazkara.Data.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourtSidesRow3_StadiumId",
-                table: "CourtSidesRow3",
-                column: "StadiumId",
-                unique: false);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EastPremiumStands_StadiumId",
-                table: "EastPremiumStands",
-                column: "StadiumId",
-                unique: false);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EastStands_StadiumId",
-                table: "EastStands",
-                column: "StadiumId",
-                unique: false);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LeagueTeam_TeamsId",
                 table: "LeagueTeam",
                 column: "TeamsId");
@@ -329,16 +312,30 @@ namespace Tazkara.Data.Migrations
                 column: "TeamsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NorthPremiumStands_StadiumId",
-                table: "NorthPremiumStands",
-                column: "StadiumId",
-                unique: false);
+                name: "IX_Stadiums_CourtSidesRow3Id",
+                table: "Stadiums",
+                column: "CourtSidesRow3Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stadiums_EastPremiumStandsId",
+                table: "Stadiums",
+                column: "EastPremiumStandsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stadiums_EastStandsId",
+                table: "Stadiums",
+                column: "EastStandsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stadiums_NorthPremiumStandsId",
+                table: "Stadiums",
+                column: "NorthPremiumStandsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stadiums_TeamId",
                 table: "Stadiums",
                 column: "TeamId",
-                unique: false);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_MatchId",
@@ -358,22 +355,10 @@ namespace Tazkara.Data.Migrations
                 name: "ApplicationUserTicket");
 
             migrationBuilder.DropTable(
-                name: "CourtSidesRow3");
-
-            migrationBuilder.DropTable(
-                name: "EastPremiumStands");
-
-            migrationBuilder.DropTable(
-                name: "EastStands");
-
-            migrationBuilder.DropTable(
                 name: "LeagueTeam");
 
             migrationBuilder.DropTable(
                 name: "MatchTeam");
-
-            migrationBuilder.DropTable(
-                name: "NorthPremiumStands");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -386,6 +371,18 @@ namespace Tazkara.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stadiums");
+
+            migrationBuilder.DropTable(
+                name: "CourtSidesRow3");
+
+            migrationBuilder.DropTable(
+                name: "EastPremiumStands");
+
+            migrationBuilder.DropTable(
+                name: "EastStands");
+
+            migrationBuilder.DropTable(
+                name: "NorthPremiumStands");
 
             migrationBuilder.DropTable(
                 name: "Teams");

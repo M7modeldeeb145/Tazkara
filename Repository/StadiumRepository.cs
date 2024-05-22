@@ -32,6 +32,31 @@ namespace Tazkara.Repository
             return context.Stadiums.ToList();
         }
 
+        public List<CourtSidesRow3> GetAllCourtSidesRow3()
+        {
+            return context.CourtSidesRow3.ToList();
+        }
+
+        public List<EastPremiumStands> GetAllEastPremiumStands()
+        {
+            return context.EastPremiumStands.ToList();
+        }
+
+        public List<EastStands> GetAllEastStands()
+        {
+            return context.EastStands.ToList();
+        }
+
+        public List<NorthPremiumStands> GetAllNorthPremiumStands()
+        {
+            return context.NorthPremiumStands.ToList();
+        }
+
+        public List<Team> GetAllTeams()
+        {
+            return context.Teams.ToList();
+        }
+
         public Stadium GetById(int id)
         {
             return context.Stadiums.Find(id);
@@ -43,10 +68,14 @@ namespace Tazkara.Repository
             if (edit != null)
             {
                 edit.Address = stadium.Address;
-                edit.Capacity = stadium.Capacity;
+                edit.TotalCapacity = stadium.TotalCapacity;
                 edit.Name = stadium.Name;
                 edit.TeamId = stadium.TeamId;
                 edit.StadiumStatus = stadium.StadiumStatus;
+                edit.CourtSidesRow3Id = stadium.CourtSidesRow3Id;
+                edit.EastPremiumStandsId = stadium.EastPremiumStandsId;
+                edit.NorthPremiumStandsId= stadium.NorthPremiumStandsId;
+                edit.EastStandsId = stadium.EastStandsId;   
                 context.SaveChanges();
             }
         }

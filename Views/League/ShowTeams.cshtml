@@ -1,20 +1,85 @@
 ﻿@using Tazaker.Models
-@model List<Team>
+@model List<Match>
 
-@foreach(var team in Model)
-{
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Team Logo</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>@team.Name</td>
-				<td><img src="/Images/TeamsLogo/@team.TeamLogo" class="rounded-circle" width="50px"/></td>
-			</tr>
-		</tbody>
-	</table>
+@{
+    ViewBag.Title = "Match List";
 }
+
+<h2 class="text-light text-center">Matches</h2>
+<a class="btn btn-warning text-center" asp-action="Index" asp-controller="Match">Back To List</a>
+<div class="container mt-5">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var match = Model[i];
+        <div class="row mb-4 justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-center text-black mb-3">@match.Name</h5>
+                        <div class="d-flex justify-content-around align-items-center mb-4">
+                            <div class="team-info d-flex align-items-center">
+                                <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + (i + 1) + "A"]" width="50px" class="rounded-circle me-2" alt="Team A Logo" />
+                                <span class="text-dark">@ViewBag.TeamsLogoAndNames["Name" + (i + 1) + "A"]</span>
+                            </div>
+                            <span class="mx-3 fw-bold text-dark">VS</span>
+                            <div class="team-info d-flex align-items-center">
+                                <span class="text-dark">@ViewBag.TeamsLogoAndNames["Name" + (i + 1) + "B"]</span>
+                                <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + (i + 1) + "B"]" width="50px" class="rounded-circle ms-2" alt="Team B Logo" />
+                            </div>
+                        </div>
+                        <div class="match-details text-center text-dark">
+                            <p class="mb-1"><i class="fas fa-calendar-alt"></i> Start Date: @match.StartDate.ToString("MM/dd/yyyy")</p>
+                            <p class="mb-1"><i class="fas fa-calendar-alt"></i> End Date: @match.EndDate</p>
+                            <p class="mb-1"><i class="fas fa-trophy"></i> League: @match.League.Name</p>
+                            <p class="mb-1"><i class="fas fa-map-marker-alt"></i> Stadium: @ViewBag.Stadiums[i].Name</p>
+                            <p class="mb-1"><i class="fas fa-info-circle"></i> Stadium Status: @ViewBag.Stadiums[i].StadiumStatus</p>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a asp-action="Buy" asp-controller="Cart" asp-route-id="@match.Id" class="btn btn-primary">
+                                <i class="fas fa-ticket-alt"></i> Book Ticket
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete" asp-controller="Match" asp-route-id="@match.Id" class="btn btn-danger">
+                                    <i class="fas fa-ticket-alt"></i> Delete
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .card {
+        transition: transform 0.2s ease-in-out;
+        border-radius: 10px;
+        max-width: 100%;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .team-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .match-details {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+        .match-details p {
+            margin: 0;
+        }
+</style>

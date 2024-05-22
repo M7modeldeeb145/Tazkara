@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
+using Tazkara.Data;
 using Tazkara.IRepository;
 using Tazkara.ViewModels;
 
@@ -8,8 +9,10 @@ namespace Tazkara.Controllers
     public class LeagueController : Controller
     {
         ILeague repository;
-        public LeagueController(ILeague repository)
+        private readonly ApplicationDbContext context;
+        public LeagueController(ILeague repository,ApplicationDbContext context)
         {
+            this.context = context;
             this.repository = repository;
         }
         [HttpGet]
@@ -17,6 +20,30 @@ namespace Tazkara.Controllers
         {
             var leagues = repository.GetAll();
             return View(leagues);
+        }
+        [HttpGet]
+        public IActionResult ShowTeams(int id)
+        {
+            var Matches = repository.GetMatchesInLeague(id);
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            int i = 1;
+
+            foreach (var item in Matches)
+            {
+                var logoTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).TeamLogo;
+                var NameTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).Name;
+                var logoTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).TeamLogo;
+                var NameTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).Name;
+
+                dic.Add($"match{i}A", logoTeam1);
+                dic.Add($"Name{i}A", NameTeam1);
+                dic.Add($"match{i}B", logoTeam2);
+                dic.Add($"Name{i++}B", NameTeam2);
+            }
+
+            ViewData["TeamsLogoAndNames"] = dic;
+            ViewData["Stadiums"] = repository.GetStadiums();
+            return View(Matches);
         }
         [HttpGet]
         public IActionResult Create()
@@ -78,12 +105,6 @@ namespace Tazkara.Controllers
             }
             repository.Delete(id);
             return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult ShowTeams(int id)
-        {
-            var teams = repository.GetTeamsWithLeague(id);
-            return View(teams);
         }
     }
 }

@@ -2,52 +2,75 @@
 
 @{
     ViewData["Title"] = "Create";
+    SelectList Teams = new SelectList(ViewBag.Teams, "Id", "Name");
+    SelectList NorthPremium = new SelectList(ViewBag.NorthPremium, "Id", "Name");
+    SelectList EastPremium = new SelectList(ViewBag.EastPremium, "Id", "Name");
+    SelectList East = new SelectList(ViewBag.East, "Id", "Name");
+    SelectList CourtSidesRow3 = new SelectList(ViewBag.CourtSidesRow3, "Id", "Name");
 }
 
-<h1>Create</h1>
+<h1 class="text-center my-4">Create Stadium</h1>
 
-<h4>StadiumViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Capacity" class="control-label"></label>
-                <input asp-for="Capacity" class="form-control" />
-                <span asp-validation-for="Capacity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StadiumStatus" class="control-label"></label>
-                <select asp-for="StadiumStatus" class="form-control"></select>
-                <span asp-validation-for="StadiumStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TeamId" class="control-label"></label>
-                <input asp-for="TeamId" class="form-control" />
-                <span asp-validation-for="TeamId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <h4>Stadium</h4>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TotalCapacity" class="form-label"></label>
+                    <input asp-for="TotalCapacity" class="form-control" />
+                    <span asp-validation-for="TotalCapacity" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TeamId" class="form-label"></label>
+                    <select asp-items="Teams" asp-for="TeamId" class="form-select"></select>
+                    <span asp-validation-for="TeamId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="NorthPremiumStandsId" class="form-label"></label>
+                    <select asp-items="NorthPremium" asp-for="NorthPremiumStandsId" class="form-select"></select>
+                    <span asp-validation-for="NorthPremiumStandsId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="EastPremiumStandsId" class="form-label"></label>
+                    <select asp-items="EastPremium" asp-for="EastPremiumStandsId" class="form-select"></select>
+                    <span asp-validation-for="EastPremiumStandsId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="CourtSidesRow3Id" class="form-label"></label>
+                    <select asp-items="CourtSidesRow3" asp-for="CourtSidesRow3Id" class="form-select"></select>
+                    <span asp-validation-for="CourtSidesRow3Id" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="EastStandsId" class="form-label"></label>
+                    <select asp-items="East" asp-for="EastStandsId" class="form-select"></select>
+                    <span asp-validation-for="EastStandsId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary w-100" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -47,6 +47,7 @@
             {
                 <div class="form-check m-1">
                     <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
+                    <input type="hidden" asp-for="@Model.Roles[i].RoleId" />
                     <input asp-for="@Model.Roles[i].IsSelected" class="form-check-input" />
                     <label asp-for="@Model.Roles[i].IsSelected" class="form-check-label">
                         @Model.Roles[i].RoleName

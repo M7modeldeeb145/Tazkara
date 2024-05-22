@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using Tazaker.Models;
 using Tazkara.Models;
 using Tazkara.ViewModels;
@@ -9,6 +11,7 @@ namespace Tazkara.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ReservationCart> ReservationCarts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Match> Matchs { get; set; }
         public DbSet<League> Leagues { get; set; }
@@ -33,7 +36,10 @@ namespace Tazkara.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "Security");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "Security");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "Security");
-
+            }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Conventions.Add(_ => new BlankTriggerAddingConvention());
         }
         public DbSet<ContactUs> ContactUs { get; set; }
     }

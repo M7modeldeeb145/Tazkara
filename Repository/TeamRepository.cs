@@ -1,4 +1,5 @@
-﻿using Tazaker.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Tazaker.Models;
 using Tazkara.Data;
 using Tazkara.IRepository;
 
@@ -36,7 +37,6 @@ namespace Tazkara.Repository
         {
             return context.Teams.Find(id);
         }
-
         public void Update(Team team)
         {
             var edit = context.Teams.Find(team.Id);
