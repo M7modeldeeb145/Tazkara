@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
 using Tazkara.IRepository;
 
 namespace Tazkara.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ContactUsController : Controller
     {
         IContactUs repository;
@@ -17,12 +19,14 @@ namespace Tazkara.Controllers
             return View(contactus);
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public IActionResult Create(ContactUs contactus)
         {
             if (ModelState.IsValid)

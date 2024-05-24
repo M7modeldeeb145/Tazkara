@@ -42,5 +42,7 @@ namespace Tazkara.Data
             configurationBuilder.Conventions.Add(_ => new BlankTriggerAddingConvention());
         }
         public DbSet<ContactUs> ContactUs { get; set; }
+        public DbSet<Tazkara.ViewModels.MatchViewModel> MatchViewModel { get; set; } = default!;
+        public DbSet<Tazkara.ViewModels.LeagueViewModel> LeagueViewModel { get; set; } = default!;
     }
 }

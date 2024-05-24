@@ -1,27 +1,28 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model List<IdentityRole>
 @{
-	ViewData["Title"] = "Roles";
+    ViewData["Title"] = "Roles";
 }
-<h1> Roles </h1>
-<table class="table table-striped mt-4">
-	<thead>
-		<tr class="bg-primary text-white">
-			<th>Id</th>
-			<th>Role Name</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach(var role in Model)
-		{
-			<tr>
-				<td>@role.Id</td>
-				<td>@role.Name</td>
-			</tr>
-		}
-	</tbody>
-	<div>
-		<a class="btn btn-primary" asp-action="Create" asp-controller="Role">Add New Role</a>
-	</div>
-
-</table>
+<h1 class="text-white">Roles</h1>
+<div class="mt-4">
+    <table class="table table-striped">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Role Name</th>
+            </tr>
+        </thead>
+        <tbody class="text-white">
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td class="text-light">@role.Id</td>
+                    <td class="text-light">@role.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="Role">Add New Role</a>
+</div>

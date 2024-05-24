@@ -11,8 +11,14 @@
         background-position: center;
     }
 </style>
-
-<div class="text-center">
-    <h1 class="text-center text-capitalize text-light">Welcome To Tazkara.</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-center">
+        <h1 class="text-center text-capitalize text-light">Welcome To Tazkara @User.Identity.Name !</h1>
+    </div>
+}
+else
+{
     <h2 class="text-center text-capitalize text-light">Sign Up To Be Able To Book Your Tickets To Matches. </h2>
-</div>
+}
+

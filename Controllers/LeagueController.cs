@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
 using Tazkara.Data;
 using Tazkara.IRepository;
@@ -6,6 +7,7 @@ using Tazkara.ViewModels;
 
 namespace Tazkara.Controllers
 {
+    [Authorize (Roles ="Admin")]
     public class LeagueController : Controller
     {
         ILeague repository;
@@ -15,12 +17,14 @@ namespace Tazkara.Controllers
             this.context = context;
             this.repository = repository;
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
             var leagues = repository.GetAll();
             return View(leagues);
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ShowTeams(int id)
         {
@@ -59,6 +63,7 @@ namespace Tazkara.Controllers
                 var league = new League()
                 {
                     Name = leagueViewModel.Name,
+                    LeagueLogo = leagueViewModel.LeagueLogo
                 };
                 repository.Create(league);
                 return RedirectToAction("Index");
@@ -76,6 +81,7 @@ namespace Tazkara.Controllers
             var leagueVM = new LeagueViewModel()
             {
                 Name = league.Name, 
+                LeagueLogo = league.LeagueLogo
             };
             return View(leagueVM);
         }
@@ -90,6 +96,8 @@ namespace Tazkara.Controllers
                 {
                     return NotFound();
                 }
+                league.Name = leagueViewModel.Name;
+                league.LeagueLogo = leagueViewModel.LeagueLogo;
                 repository.Update(league);
                 return RedirectToAction("Index");
             }

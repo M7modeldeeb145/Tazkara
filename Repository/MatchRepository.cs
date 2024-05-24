@@ -65,18 +65,8 @@ namespace Tazkara.Repository
 
         public void Update(Match match)
         {
-            var edit = context.Matchs.Find(match.Id);
-            if (edit != null)
-            {
-                edit.StartDate = match.StartDate;
-                edit.EndDate = match.EndDate;
-                edit.Name = match.Name;
-                edit.LeagueId = match.LeagueId;
-                edit.StadiumId = match.StadiumId;
-                edit.TeamB = match.TeamB;
-                edit.TeamA = match.TeamA;
-                context.SaveChanges();
-            }
+            context.Matchs.Update(match);
+            context.SaveChanges();
         }
 
     }

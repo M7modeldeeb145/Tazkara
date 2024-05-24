@@ -39,13 +39,8 @@ namespace Tazkara.Repository
         }
         public void Update(Team team)
         {
-            var edit = context.Teams.Find(team.Id);
-            if (edit != null)
-            {
-                edit.TeamLogo = team.TeamLogo;
-                edit.Name = team.Name;
-                context.SaveChanges();
-            }
+            context.Teams.Update(team); 
+            context.SaveChanges();
         }
     }
 }

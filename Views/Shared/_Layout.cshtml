@@ -40,11 +40,16 @@
                                 <i class="fas fa-trophy"></i> All Leagues
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Stadium" asp-action="Index">
+                                <i class="fas fa-landmark"></i> All Stadiums
+                            </a>
+                        </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle btn btn-outline-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Actions
+                                    Admin Actions
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Team">Create New Team</a></li>
@@ -52,7 +57,7 @@
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Stadium">Create New Stadium</a></li>
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Match">Create Match</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="ContactUs">All ContactUs</a></li>
-                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Stadium">All Stadiums</a></li>
+                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Team">All Teams</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Role">Add New Role</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Users">All Users</a></li>
                                 </ul>

@@ -26,9 +26,29 @@
                 <dd class="col-sm-10" style="color: black;">@contactUs.Status</dd>
             </dl>
             <div class="text-end">
-                <a asp-action="Delete" asp-route-id="@contactUs.Id" class="btn btn-danger">Delete</a>
+                <button class="btn btn-danger" onclick="confirmDelete('@contactUs.Id')">Delete</button>
             </div>
         </div>
     </div>
 }
 
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(contactUsId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Delete", "ContactUs")/' + contactUsId;
+                }
+            })
+        }
+    </script>
+}

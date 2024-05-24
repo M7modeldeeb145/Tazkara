@@ -19,7 +19,14 @@
                         <p class="text-black"><strong>Address:</strong> @stadium.Address</p>
                         <p class="text-black"><strong>Total Capacity:</strong> @stadium.TotalCapacity</p>
                         <p class="text-black"><strong>Stadium Owner:</strong> @stadium.team.Name</p>
+                        <a asp-action="Delete" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-danger">
+                            <i class="fas fa-ticket-alt"></i> Delete
+                        </a>
+                        <a asp-action="Update" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-secondary">
+                            <i class= class="fas fa-edit"></i> Update
+                        </a>
                     </div>
+                    
                 </div>
             </div>
         }

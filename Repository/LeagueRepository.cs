@@ -51,13 +51,8 @@ namespace Tazkara.Repository
 
         public void Update(League league)
         {
-            var edit = context.Leagues.Find(league.Id);
-            if (edit != null)
-            {
-                
-                edit.Name = league.Name;
-                context.SaveChanges();
-            }
+            context.Leagues.Update(league);
+            context.SaveChanges();
         }
     }
 }

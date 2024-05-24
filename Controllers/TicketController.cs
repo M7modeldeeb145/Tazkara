@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
 using Tazkara.IRepository;
 using Tazkara.ViewModels;
 
 namespace Tazkara.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         ITicket repository;

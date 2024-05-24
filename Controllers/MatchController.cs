@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using Tazaker.Models;
 using Tazkara.Data;
@@ -7,6 +8,7 @@ using Tazkara.ViewModels;
 
 namespace Tazkara.Controllers
 {
+    [Authorize (Roles ="Admin")]
     public class MatchController : Controller
     {
         IMatch repository;
@@ -18,6 +20,7 @@ namespace Tazkara.Controllers
             this.context = context;
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var Matches = repository.GetAll();
@@ -37,9 +40,9 @@ namespace Tazkara.Controllers
                 dic.Add($"match{i}B", logoTeam2);
                 dic.Add($"Name{i++}B", NameTeam2);
             }
-
             ViewData["TeamsLogoAndNames"] = dic;
             ViewData["Leagues"] = repository.GetLeagues();
+            ViewData["Stadiums"] = repository.GetStadiums();
             return View(Matches);
         }
         [HttpGet]
@@ -89,6 +92,9 @@ namespace Tazkara.Controllers
                 TeamA = match.TeamA,
                 TeamB = match.TeamB,
             };
+            ViewData["Teams"] = repository.GetTeams();
+            ViewData["Stadiums"] = repository.GetStadiums();
+            ViewData["Leagues"] = repository.GetLeagues();
             return View(matchviewmodel);
         }
         [HttpPost]
@@ -97,6 +103,18 @@ namespace Tazkara.Controllers
             if (ModelState.IsValid)
             {
                 var match = repository.GetById(matchviewmodel.Id);
+                if(match == null)
+                {
+                    return NotFound();
+                }
+                //Update Match Properties
+                match.StartDate = matchviewmodel.StartDate;
+                match.EndDate = matchviewmodel.EndDate;
+                match.TeamA = matchviewmodel.TeamA;
+                match.TeamB = matchviewmodel.TeamB;
+                match.Name = matchviewmodel.Name;
+                match.LeagueId = matchviewmodel.LeagueId;
+                match.StadiumId = matchviewmodel.StadiumId;
                 repository.Update(match);
                 return RedirectToAction("Index");
             }

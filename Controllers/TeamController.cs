@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
 using Tazkara.IRepository;
 using Tazkara.ViewModels;
 
 namespace Tazkara.Controllers
 {
+    [Authorize (Roles ="Admin")]
     public class TeamController : Controller
     {
         ITeam repository;
@@ -12,6 +14,7 @@ namespace Tazkara.Controllers
         {
             this.repository = repository;
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
@@ -62,6 +65,12 @@ namespace Tazkara.Controllers
             if (!ModelState.IsValid)
             {
                 var team = repository.GetById(teamViewModel.Id);
+                if (team == null)
+                {
+                    return NotFound();
+                }
+                team.Name = teamViewModel.Name;
+                team.TeamLogo = teamViewModel.TeamLogo;
                 repository.Update(team);
                 return RedirectToAction("Index");
             }
