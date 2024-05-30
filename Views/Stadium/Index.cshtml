@@ -5,34 +5,88 @@
 }
 
 <h1 class="text-center my-4">All Stadiums</h1>
-
+<div class="text-center mt-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
 <div class="container">
     <div class="row">
         @foreach (var stadium in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title text-black">@stadium.Name</h5>
+                <div class="card h-100 shadow-sm" style="border-color: #ffc107;">
+                    <div class="card-header bg-warning text-black">
+                        <h5 class="card-title">@stadium.Name</h5>
                     </div>
-                    <div class="card-body">
-                        <p class="text-black"><strong>Address:</strong> @stadium.Address</p>
-                        <p class="text-black"><strong>Total Capacity:</strong> @stadium.TotalCapacity</p>
-                        <p class="text-black"><strong>Stadium Owner:</strong> @stadium.team.Name</p>
-                        <a asp-action="Delete" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-danger">
-                            <i class="fas fa-ticket-alt"></i> Delete
-                        </a>
-                        <a asp-action="Update" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-secondary">
-                            <i class= class="fas fa-edit"></i> Update
-                        </a>
+                    <div class="card-body" style="background-color: #fff3cd;">
+                        <p><strong>Address:</strong> @stadium.Address</p>
+                        <p><strong>Total Capacity:</strong> @stadium.TotalCapacity</p>
+                        <p><strong>Stadium Owner:</strong> @stadium.team.Name</p>
                     </div>
-                    
+                    <div class="card-footer" style="background-color: #ffc107;">
+                        <div class="d-flex justify-content-between">
+                            <a href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete", "Stadium", new { id = stadium.Id })')" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                            <a asp-action="Update" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-dark">
+                                <i class="fas fa-edit"></i> Update
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
     </div>
 </div>
 
-<div class="text-center mt-3">
-    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to List</a>
-</div>
+<!-- Include Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dO7XuYl9W/jRMgbyO64HtRvl77K4QZqT6xIO5syNfIV0lFzoxQJ+w5O3F0P5nE7TJSxzIvP7rR8F+fjx07R54w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS for additional styling -->
+<style>
+    .card-header {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+    }
+
+    .card-body {
+        background-color: #fff3cd !important;
+        color: #000;
+    }
+
+    .card-footer {
+        background-color: #ffc107 !important;
+    }
+
+    .btn-dark {
+        background-color: #000 !important;
+        border-color: #000 !important;
+        color: #fff !important;
+    }
+
+    .btn-danger {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+        color: #fff !important;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(url) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
+}

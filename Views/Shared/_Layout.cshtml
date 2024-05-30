@@ -45,6 +45,11 @@
                                 <i class="fas fa-landmark"></i> All Stadiums
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
+                                <i class="fas fa-calendar-check"></i> &nbsp;<span id="cart-item-count">(0)</span>
+                            </a>
+                        </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">

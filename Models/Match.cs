@@ -1,4 +1,6 @@
-﻿namespace Tazaker.Models
+﻿using Tazkara.Models;
+
+namespace Tazaker.Models
 {
     public class Match
     {
@@ -13,8 +15,6 @@
         public int StadiumId { get; set; }
         public Stadium? Stadium { get; set; }
         public List<Team>? Teams { get; set; }
-        public List<Ticket>? Tickets { get; set; }
-       
-       
+        public List<ReservationCart>? Tickets { get; set; }
     }
 }

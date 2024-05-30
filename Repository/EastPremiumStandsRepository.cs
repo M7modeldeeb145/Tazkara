@@ -29,7 +29,7 @@ namespace Tazkara.Repository
 
 		public List<EastPremiumStands> GetAll()
 		{
-			return context.EastPremiumStands.Include(e => e.Stadium).ToList();
+			return context.EastPremiumStands.ToList();
 		}
 
 		public List<Stadium> GetAllStadiums()

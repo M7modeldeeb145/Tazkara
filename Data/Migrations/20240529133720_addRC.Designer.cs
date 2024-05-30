@@ -12,8 +12,8 @@ using Tazkara.Data;
 namespace Tazkara.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240522161940_add-reservationCart")]
-    partial class addreservationCart
+    [Migration("20240529133720_addRC")]
+    partial class addRC
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -686,14 +686,46 @@ namespace Tazkara.Data.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<int>("CourtSidesRow3Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EastPremiumStandsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EastStandsId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MatchId")
                         .HasColumnType("int");
+
+                    b.Property<int>("NorthPremiumStandsId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ReferenceNum")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("StadiumId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("CourtSidesRow3Id");
+
+                    b.HasIndex("EastPremiumStandsId");
+
+                    b.HasIndex("EastStandsId");
+
                     b.HasIndex("MatchId");
+
+                    b.HasIndex("NorthPremiumStandsId");
+
+                    b.HasIndex("StadiumId");
 
                     b.ToTable("ReservationCarts", t =>
                         {
@@ -864,13 +896,13 @@ namespace Tazkara.Data.Migrations
             modelBuilder.Entity("Tazaker.Models.Ticket", b =>
                 {
                     b.HasOne("Tazaker.Models.Match", "Match")
-                        .WithMany("Tickets")
+                        .WithMany()
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Tazaker.Models.Stadium", "Stadium")
-                        .WithMany("Tickets")
+                        .WithMany()
                         .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -888,15 +920,55 @@ namespace Tazkara.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tazaker.Models.Match", "Match")
+                    b.HasOne("Tazaker.Models.CourtSidesRow3", "CourtSidesRow3")
                         .WithMany()
+                        .HasForeignKey("CourtSidesRow3Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.EastPremiumStands", "EastPremiumStands")
+                        .WithMany()
+                        .HasForeignKey("EastPremiumStandsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.EastStands", "EastStands")
+                        .WithMany()
+                        .HasForeignKey("EastStandsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.Match", "Match")
+                        .WithMany("Tickets")
                         .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.NorthPremiumStands", "NorthPremiumStands")
+                        .WithMany()
+                        .HasForeignKey("NorthPremiumStandsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tazaker.Models.Stadium", "Stadium")
+                        .WithMany("ReservationCarts")
+                        .HasForeignKey("StadiumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
+                    b.Navigation("CourtSidesRow3");
+
+                    b.Navigation("EastPremiumStands");
+
+                    b.Navigation("EastStands");
+
                     b.Navigation("Match");
+
+                    b.Navigation("NorthPremiumStands");
+
+                    b.Navigation("Stadium");
                 });
 
             modelBuilder.Entity("Tazaker.Models.CourtSidesRow3", b =>
@@ -933,7 +1005,7 @@ namespace Tazkara.Data.Migrations
                 {
                     b.Navigation("Match");
 
-                    b.Navigation("Tickets");
+                    b.Navigation("ReservationCarts");
                 });
 
             modelBuilder.Entity("Tazaker.Models.Team", b =>

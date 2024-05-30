@@ -9,16 +9,49 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center;
+        height: 100vh;
+    }
+
+    .content-wrapper {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 50px;
+        border-radius: 10px;
+        margin-top: 20%;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .signup-text {
+        font-size: 1.5rem;
+    }
+
+    .search-container {
+        margin-top: 30px;
     }
 </style>
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="text-center">
-        <h1 class="text-center text-capitalize text-light">Welcome To Tazkara @User.Identity.Name !</h1>
-    </div>
-}
-else
-{
-    <h2 class="text-center text-capitalize text-light">Sign Up To Be Able To Book Your Tickets To Matches. </h2>
-}
 
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="text-center content-wrapper">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1 class="text-light welcome-text">Welcome To Tazkara, @User.Identity.Name!</h1>
+        }
+        else
+        {
+            <h2 class="text-light signup-text">Sign Up To Be Able To Book Your Tickets To Matches.</h2>
+        }
+
+        <div class="search-container mt-4">
+            <form asp-controller="Match" asp-action="Search" method="get" class="d-flex justify-content-center">
+                <input type="text" name="name" class="form-control me-2" placeholder="Search matches" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap CSS (if not already included in your project) -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">

@@ -1,0 +1,103 @@
+﻿@model Tazkara.Models.ReservationCart
+
+@{
+    // Inline helper function to get the capacity of the selected location
+    Func<int, int> getLocationCapacity = (locationId) =>
+    {
+        if (Model.Stadium != null)
+        {
+            if (locationId == Model.Stadium.NorthPremiumStandsId && Model.Stadium.NorthPremiumStands != null)
+            {
+                return Model.Stadium.NorthPremiumStands.Capacity;
+            }
+            else if (locationId == Model.Stadium.EastPremiumStandsId && Model.Stadium.EastPremiumStands != null)
+            {
+                return Model.Stadium.EastPremiumStands.Capacity;
+            }
+            else if (locationId == Model.Stadium.EastStandsId && Model.Stadium.EastStands != null)
+            {
+                return Model.Stadium.EastStands.Capacity;
+            }
+            else if (locationId == Model.Stadium.CourtSidesRow3Id && Model.Stadium.CourtSidesRow3 != null)
+            {
+                return Model.Stadium.CourtSidesRow3.Capacity;
+            }
+        }
+        return 0;
+    };
+
+    // Generate options for the select element
+    var optionsHtml = new List<string>();
+    if (ViewData["StadiumLocations"] is Dictionary<string, int> stadiumLocations)
+    {
+        foreach (var location in stadiumLocations)
+        {
+            var locationName = location.Key;
+            var locationId = location.Value;
+            var locationCapacity = getLocationCapacity(locationId);
+            var disabledAttribute = locationCapacity == 0 ? "disabled" : "";
+
+            optionsHtml.Add($"<option value=\"{locationName}\" {disabledAttribute}>{locationName} (Capacity: {locationCapacity})</option>");
+        }
+    }
+}
+
+<h1 class="text-center my-4">Book Ticket</h1>
+
+<h4 class="text-center text-bold">Match Details</h4>
+<hr />
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="BookTicket" asp-controller="Match" method="post">
+                <input asp-for="MatchId" type="hidden" />
+                <input asp-for="StadiumId" type="hidden" />
+                <input asp-for="Title" type="hidden" />
+                <input asp-for="CourtSidesRow3Id" type="hidden" />
+                <input asp-for="NorthPremiumStandsId" type="hidden" />
+                <input asp-for="EastPremiumStandsId" type="hidden" />
+                <input asp-for="EastStandsId" type="hidden" />
+                <div class="match-details text-center text-light bg-dark p-3 rounded mb-4">
+                    @if (Model.Match != null)
+                    {
+                        <p class="mb-1"><i class="fas fa-clock"></i> Match Date & Time: @Model.Match.EndDate</p>
+                        <p class="mb-1"><i class="fas fa-trophy"></i> League: @Model.Match.League?.Name</p>
+                        <p class="mb-1"><i class="fas fa-map-marker-alt"></i> Stadium: @Model.Match.Stadium?.Name</p>
+                        <p class="mb-1"><i class="fas fa-info-circle"></i> Stadium Status: @Model.Match.Stadium?.StadiumStatus</p>
+                    }
+                </div>
+                <div class="form-group mb-3">
+                    <label for="selectedLocation">Select Stadium Location</label>
+                    <select class="form-control" id="selectedLocation" name="selectedLocation">
+                        @foreach (var optionHtml in optionsHtml)
+                        {
+                            @Html.Raw(optionHtml)
+                        }
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="count">Number of Tickets</label>
+                    <select class="form-control" id="count" name="count">
+                        @for (int i = 1; i <= 4; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Book Ticket" class="btn btn-primary" />
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

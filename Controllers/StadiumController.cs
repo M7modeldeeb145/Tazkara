@@ -120,7 +120,7 @@ namespace Tazkara.Controllers
             return View("Update");
         }
 
-        [HttpPost]
+        //[HttpPost]
         public IActionResult Delete(int id)
         {
             var stadium = repository.GetById(id);

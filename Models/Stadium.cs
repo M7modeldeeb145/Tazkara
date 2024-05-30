@@ -1,4 +1,6 @@
-﻿namespace Tazaker.Models
+﻿using Tazkara.Models;
+
+namespace Tazaker.Models
 {
     public class Stadium
     {
@@ -10,7 +12,7 @@
         public int TeamId { get; set; }
         public Team? team { get; set; }
         public Match? Match { get; set; }
-        public List<Ticket>? Tickets { get; set; }
+        public List<ReservationCart>? ReservationCarts { get; set; }
         public EastPremiumStands? EastPremiumStands { get; set; }
         public int EastPremiumStandsId { get; set; }
         public NorthPremiumStands? NorthPremiumStands { get; set; }
@@ -26,7 +28,7 @@
             {
                 StadiumStatus = StadiumStatus.Ended;
             }
-            else if (Tickets != null && Tickets.Count > TotalCapacity)
+            else if (ReservationCarts != null && ReservationCarts.Count > TotalCapacity)
             {
                 StadiumStatus = StadiumStatus.Closed;
             }

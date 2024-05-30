@@ -35,7 +35,7 @@ namespace Tazkara.Repository
 
         public Match GetById(int id)
         {
-            var match = context.Matchs.Find(id);
+            var match = context.Matchs.Include(e=>e.League).Include(e=>e.Stadium).Include(e=>e.Teams).FirstOrDefault(e=>e.Id==id);
             if (match != null)
             {
                 return match;
@@ -60,9 +60,8 @@ namespace Tazkara.Repository
 
         public List<Match> Search(string name)
         {
-            return context.Matchs.Include(e=>e.LeagueId).Include(e=>e.Stadium).Include(e=>e.Teams).Include(e=>e.Tickets).Where(e=>e.Name.Contains(name)).ToList();
+            return context.Matchs.Include(e=>e.League).Include(e=>e.Stadium).Include(e=>e.Teams).Where(e=>e.Name.Contains(name)).ToList();
         }
-
         public void Update(Match match)
         {
             context.Matchs.Update(match);
