@@ -37,7 +37,7 @@
             var locationCapacity = getLocationCapacity(locationId);
             var disabledAttribute = locationCapacity == 0 ? "disabled" : "";
 
-            optionsHtml.Add($"<option value=\"{locationName}\" {disabledAttribute}>{locationName} (Capacity: {locationCapacity})</option>");
+            optionsHtml.Add($"<option value=\"{locationName}\" {disabledAttribute}>{locationName}</option>");
         }
     }
 }
@@ -50,7 +50,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="BookTicket" asp-controller="Match" method="post">
+            <form asp-action="BookTicket" asp-controller="Mat" method="post">
                 <input asp-for="MatchId" type="hidden" />
                 <input asp-for="StadiumId" type="hidden" />
                 <input asp-for="Title" type="hidden" />
@@ -86,7 +86,7 @@
                     </select>
                 </div>
                 <div class="form-group text-center">
-                    <input type="submit" value="Book Ticket" class="btn btn-primary" />
+                    <input type="submit" asp-action="BookTicket" asp-controller="Match" value="Book Ticket" class="btn btn-primary" />
                 </div>
             </form>
             <div class="text-center mt-3">

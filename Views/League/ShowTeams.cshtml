@@ -36,7 +36,7 @@
                             <p class="mb-1"><i class="fas fa-info-circle"></i> Stadium Status: @match.Stadium.StadiumStatus</p>
                         </div>
                         <div class="text-center mt-3">
-                            <a asp-action="Buy" asp-controller="Cart" asp-route-id="@match.Id" class="btn btn-primary">
+                            <a asp-action="BookTicket" asp-controller="Match" asp-route-id="@match.Id" class="btn btn-primary">
                                 <i class="fas fa-ticket-alt"></i> Book Ticket
                             </a>
                             @if (User.IsInRole("Admin"))

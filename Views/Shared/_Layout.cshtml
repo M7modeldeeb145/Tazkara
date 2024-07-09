@@ -24,13 +24,8 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
                                 <i class="fas fa-home"></i> Home
                             </a>
-                        </li>@* 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                <i class="fas fa-user-secret"></i> Privacy
-                            </a>
                         </li>
-                         *@<li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Match" asp-action="Index">
                                 <i class="fas fa-futbol"></i> All Matches
                             </a>
@@ -41,17 +36,28 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Stadium" asp-action="Index">
-                                <i class="fas fa-landmark"></i> All Stadiums
+                            <a class="nav-link" asp-area="" asp-controller="ContactUs" asp-action="Create">
+                                <i class="fas fa-envelope"></i> Contact Us
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
-                                <i class="fas fa-calendar-check"></i> &nbsp;<span id="cart-item-count">(0)</span>
+                                <i class="fas fa-calendar-check"></i> &nbsp;<span id="cart-item-count"></span>
                             </a>
                         </li>
+                        
                         @if (User.IsInRole("Admin"))
                         {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Stadium" asp-action="Index">
+                                    <i class="fas fa-landmark"></i> All Stadiums
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Team" asp-action="Index">
+                                    <i class="fas fa-users"></i> All Teams
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle btn btn-outline-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Admin Actions
@@ -62,7 +68,6 @@
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Stadium">Create New Stadium</a></li>
                                     <li><a class="dropdown-item" asp-action="Create" asp-controller="Match">Create Match</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="ContactUs">All ContactUs</a></li>
-                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Team">All Teams</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Role">Add New Role</a></li>
                                     <li><a class="dropdown-item" asp-action="Index" asp-controller="Users">All Users</a></li>
                                 </ul>
@@ -83,7 +88,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <a asp-area="" asp-action="Create" asp-controller="ContactUs" class="btn btn-light">You Can Contact Us From Here</a>
+            &copy; @DateTime.Now.Year - Tazkara. All Rights Reserved.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

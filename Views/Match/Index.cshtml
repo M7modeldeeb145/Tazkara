@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Match List";
 }
+
 <h2 class="text-light text-center">Leagues</h2>
 <div class="leagues-container d-flex justify-content-center flex-wrap mb-4">
     @foreach (var league in ViewBag.Leagues)
@@ -16,7 +17,7 @@
         </div>
     }
 </div>
-<a><img src="" /></a>
+
 <div class="container mt-5">
     <h2 class="text-light text-center">All Matches</h2>
 
@@ -30,21 +31,21 @@
                         <h5 class="card-title text-center text-black mb-3">@match.Name</h5>
                         <div class="d-flex justify-content-around align-items-center mb-4">
                             <div class="team-info d-flex align-items-center">
-                                <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + (i + 1) + "A"]" width="50px" class="rounded-circle me-2" alt="Team A Logo" />
-                                <span class="text-dark">@ViewBag.TeamsLogoAndNames["Name" + (i + 1) + "A"]</span>
+                                <img src="/Images/TeamsLogo/@(ViewBag.TeamsLogoAndNames[$"match{i + 1}A"] ?? "default.png")" width="50px" class="rounded-circle me-2" alt="Team A Logo" />
+                                <span class="text-dark">@ViewBag.TeamsLogoAndNames[$"Name{i + 1}A"]</span>
                             </div>
                             <span class="mx-3 fw-bold text-dark">VS</span>
                             <div class="team-info d-flex align-items-center">
-                                <span class="text-dark">@ViewBag.TeamsLogoAndNames["Name" + (i + 1) + "B"]</span>
-                                <img src="/Images/TeamsLogo/@ViewBag.TeamsLogoAndNames["match" + (i + 1) + "B"]" width="50px" class="rounded-circle ms-2" alt="Team B Logo" />
+                                <span class="text-dark">@ViewBag.TeamsLogoAndNames[$"Name{i + 1}B"]</span>
+                                <img src="/Images/TeamsLogo/@(ViewBag.TeamsLogoAndNames[$"match{i + 1}B"] ?? "default.png")" width="50px" class="rounded-circle ms-2" alt="Team B Logo" />
                             </div>
                         </div>
                         <div class="match-details text-center text-dark">
                             <p class="mb-1"><i class="fas fa-calendar-alt"></i> Start Date: @match.StartDate.ToString("MM/dd/yyyy")</p>
                             <p class="mb-1"><i class="fas fa-calendar-alt"></i> End Date: @match.EndDate</p>
-                            <p class="mb-1"><i class="fas fa-trophy"></i> League: @match.League.Name</p>
-                            <p class="mb-1"><i class="fas fa-map-marker-alt"></i> Stadium: @match.StadiumId</p>
-                            @* <p class="mb-1"><i class="fas fa-info-circle"></i> Stadium Status: @match.Stadium.StadiumStatus</p> *@
+                            <p class="mb-1"><i class="fas fa-trophy"></i> League: @(match.League?.Name ?? "N/A")</p>
+                            <p class="mb-1"><i class="fas fa-map-marker-alt"></i> Stadium: @(match.Stadium?.Name ?? "N/A")</p>
+                            <p class="mb-1"><i class="fas fa-info-circle"></i> Stadium Status: @(match.Stadium?.StadiumStatus.ToString() ?? "N/A")</p>
                         </div>
                         <div class="text-center mt-3">
                             <a asp-action="BookTicket" asp-controller="Match" asp-route-id="@match.Id" class="btn btn-primary">

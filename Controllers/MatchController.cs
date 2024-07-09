@@ -32,17 +32,19 @@ namespace Tazkara.Controllers
         public IActionResult Index()
         {
             var Matches = repository.GetAll();
-
             Dictionary<string, string> dic = new Dictionary<string, string>();
             int i = 1;
 
             foreach (var item in Matches)
             {
-                var logoTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).TeamLogo;
-                var NameTeam1 = context.Teams.First(e => e.Id == int.Parse(item.TeamA)).Name;
-                var logoTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).TeamLogo;
-                var NameTeam2 = context.Teams.First(e => e.Id == int.Parse(item.TeamB)).Name;
-                
+                var teamA = context.Teams.FirstOrDefault(e => e.Id == int.Parse(item.TeamA));
+                var teamB = context.Teams.FirstOrDefault(e => e.Id == int.Parse(item.TeamB));
+
+                var logoTeam1 = teamA?.TeamLogo;
+                var NameTeam1 = teamA?.Name;
+                var logoTeam2 = teamB?.TeamLogo;
+                var NameTeam2 = teamB?.Name;
+
                 dic.Add($"match{i}A", logoTeam1);
                 dic.Add($"Name{i}A", NameTeam1);
                 dic.Add($"match{i}B", logoTeam2);
@@ -136,6 +138,7 @@ namespace Tazkara.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Search (string name)
         {
             var matches = repository.Search(name);

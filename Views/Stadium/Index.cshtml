@@ -6,7 +6,7 @@
 
 <h1 class="text-center my-4">All Stadiums</h1>
 <div class="text-center mt-4">
-    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
 </div>
 <div class="container">
     <div class="row">
@@ -22,16 +22,20 @@
                         <p><strong>Total Capacity:</strong> @stadium.TotalCapacity</p>
                         <p><strong>Stadium Owner:</strong> @stadium.team.Name</p>
                     </div>
-                    <div class="card-footer" style="background-color: #ffc107;">
-                        <div class="d-flex justify-content-between">
-                            <a href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete", "Stadium", new { id = stadium.Id })')" class="btn btn-danger">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </a>
-                            <a asp-action="Update" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-dark">
-                                <i class="fas fa-edit"></i> Update
-                            </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="card-footer" style="background-color: #ffc107;">
+                            <div class="d-flex justify-content-between">
+                                <a href="javascript:void(0);" onclick="confirmDelete('@Url.Action("Delete", "Stadium", new { id = stadium.Id })')" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                                <a asp-action="Update" asp-controller="Stadium" asp-route-id="@stadium.Id" class="btn btn-dark">
+                                    <i class="fas fa-edit"></i> Update
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    
                 </div>
             </div>
         }

@@ -2,6 +2,7 @@
 using Tazaker.Models;
 using Tazkara.Data;
 using Tazkara.IRepository;
+using Tazkara.Models;
 
 namespace Tazkara.Repository
 {
@@ -30,9 +31,24 @@ namespace Tazkara.Repository
 
         public List<Match> GetAll()
         {
-            return context.Matchs.Include(e=>e.Stadium).Include(e=>e.League).Include(e=>e.Teams).ToList();
+            return context.Matchs.Include(e=>e.Stadium).Include(e=>e.Tickets).Include(e=>e.League).Include(e=>e.Teams).ToList();
         }
-
+        //public void UpdateStadiumStatus(int id)
+        //{
+        //    var match = context.Matchs.Find(id);
+        //    if (match != null && match.EndDate.HasValue && match.EndDate.Value < DateTime.Now)
+        //    {
+        //        match.Stadium.StadiumStatus = StadiumStatus.Ended;
+        //    }
+        //    else if (match.Tickets != null && match.Tickets.Count > match.Stadium.TotalCapacity)
+        //    {
+        //        match.Stadium.StadiumStatus = StadiumStatus.Closed;
+        //    }
+        //    else
+        //    {
+        //        match.Stadium.StadiumStatus = StadiumStatus.Avalible;
+        //    }
+        //}
         public Match GetById(int id)
         {
             var match = context.Matchs.Include(e=>e.League).Include(e=>e.Stadium).Include(e=>e.Teams).FirstOrDefault(e=>e.Id==id);

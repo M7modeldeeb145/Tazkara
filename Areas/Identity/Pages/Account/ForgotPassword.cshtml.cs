@@ -4,6 +4,8 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -71,7 +73,7 @@ namespace Tazkara.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
+                await SendEmailAsync(
                     Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
@@ -80,6 +82,22 @@ namespace Tazkara.Areas.Identity.Pages.Account
             }
 
             return Page();
+        }
+        public async Task SendEmailAsync(string email, string subject, string ConfirmLink)
+        {
+            var message = new MailMessage();
+            var smtpclient = new SmtpClient();
+            message.From = new MailAddress("hassanzidan861@gmail.com");
+            message.Subject = subject;
+            message.To.Add(email);
+            message.Body = ConfirmLink;
+            message.IsBodyHtml = true;
+
+            smtpclient.Port = 587;
+            smtpclient.Host = "smtp.gmail.com";
+            smtpclient.EnableSsl = true;
+            smtpclient.Credentials = new NetworkCredential("hassanzidan861@gmail.com", "vpspudpvghuntgqp");
+            smtpclient.Send(message);
         }
     }
 }

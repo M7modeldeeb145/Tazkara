@@ -17,7 +17,7 @@
                         <tr class="text-light">
                             <th>Match</th>
                             <th>Stadium</th>
-                            @* <th>Location</th> *@
+                            <th>Location</th>
                             <th>Ticket Count</th>
                             <th>Price per Ticket</th>
                             <th>Total Price</th>
@@ -29,7 +29,7 @@
                             <tr class="text-light">
                                 <td>@(cart.Match != null ? cart.Match.Name : "N/A")</td>
                                 <td>@(cart.Stadium != null ? cart.Stadium.Name : "N/A")</td>
-                                @* <td>
+                                <td>
                         @if (cart.NorthPremiumStandsId != 0)
                         {
                         @cart.Stadium.NorthPremiumStands.Name
@@ -46,7 +46,7 @@
                         {
                         @cart.Stadium.CourtSidesRow3.Name
                         }
-                        </td> *@
+                        </td>
                                 <td>@cart.Count</td>
                                 <td>@cart.Price.ToString("C")</td>
                                 <td>@(cart.Price * cart.Count)</td>
@@ -58,7 +58,7 @@
                     <h4>Total: @Model.Total.ToString("C")</h4>
                 </div>
                 <div class="text-center mt-4">
-                    <a asp-action="#" class="btn btn-primary">Proceed to Checkout</a>
+                    <a asp-action="#" asp-controller="#" class="btn btn-primary">Proceed to Checkout</a>
                 </div>
             </div>
         </div>

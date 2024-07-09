@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tazaker.Models;
 using Tazkara.IRepository;
 using Tazkara.ViewModels;
 
 namespace Tazkara.Controllers
 {
+    [Authorize(Roles ="Admin")]
+
     public class StadiumController : Controller
     {
         IStadium repository;
@@ -15,6 +18,7 @@ namespace Tazkara.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var stadiums = repository.GetAll();
